@@ -75,8 +75,6 @@ function FileUpload() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(backendURI)
-
         if (!rdfFile || !shapeFile) {
             console.error("Please upload both RDF and Shape files.");
             return;
@@ -87,7 +85,6 @@ function FileUpload() {
         formData.append('shape', shapeFile);
 
         try {
-            console.log('posting')
             const response = await axios.post(`${backendURI}/api/validate`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
