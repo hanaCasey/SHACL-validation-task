@@ -11,7 +11,8 @@ import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import DropZone from './DropZone';
-import axios from 'axios'; 
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const backendURI = process.env.REACT_APP_BACKEND_URI;
 
@@ -59,16 +60,17 @@ function FileUpload() {
 
     const [rdfFile, setRDFFile] = useState(null);
     const [shapeFile, setShapeFile] = useState(null);
+    const navigate = useNavigate();
 
     const handleRDFUpload = (acceptedFiles) => {
         if (acceptedFiles.length > 0) {
-            setRDFFile(acceptedFiles[0]); // Save RDF file
+            setRDFFile(acceptedFiles[0]);
             console.log('RDF file uploaded:', acceptedFiles[0]);
         }
     };
     const handleShapeUpload = (acceptedFiles) => {
         if (acceptedFiles.length > 0) {
-            setShapeFile(acceptedFiles[0]); // Save Shape file
+            setShapeFile(acceptedFiles[0]);
             console.log('Shape file uploaded:', acceptedFiles[0]);
         }
     };
@@ -79,21 +81,8 @@ function FileUpload() {
             console.error("Please upload both RDF and Shape files.");
             return;
         }
-        // Create FormData to send files
-        const formData = new FormData();
-        formData.append('rdf', rdfFile); 
-        formData.append('shape', shapeFile);
-
-        try {
-            const response = await axios.post(`${backendURI}/api/validate`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log('Response from backend:', response.data);
-        } catch (error) {
-            console.error('Error uploading files:', error);
-        }
+        // Navigate to response page
+        navigate('/response', { state: { rdfFile, shapeFile } });
     };
 
 
@@ -118,7 +107,7 @@ function FileUpload() {
                         gap: 2,
                     }}
                 >
-                    <Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                         <DropZone
                             label={'RDF'}
                             onDrop={handleRDFUpload}

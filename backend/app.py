@@ -2,8 +2,6 @@ from flask import Flask, jsonify, request
 from pyshacl import validate
 from flask_cors import CORS, cross_origin
 
-
-
 app = Flask(__name__)
 CORS(app, origins="*")
 
@@ -15,11 +13,11 @@ def hello_world():
 @app.route('/api/validate', methods = ['POST', 'OPTIONS'])
 @cross_origin()
 def validate_ttl():
-    """Handles the upload of a file."""
+    """Validates the datagraph and responds to the frontend"""
     d = {}
     try:
         # Match the keys used in the frontend
-        data_graph = request.files['data_graph']
+        data_graph = request.files['dg']
         shape_graph = request.files['sg']
         print(f"Validating {data_graph.filename} for shape {shape_graph.filename}")
         dg = data_graph.read()
@@ -38,10 +36,14 @@ def validate_ttl():
         
 
         conforms, results_graph, results_text = r
-        print('validated')
-        print(conforms, results_graph, results_text)
-        d['status'] = 1
-        return jsonify(d)  # Return success status
+        # print(f'conforms: {conforms}')
+        # print(f'results: {results_graph}')
+        print(f'results_text: {results_text}')
+
+        response_data = {'conforms': conforms, 
+                    'results-text': results_text}
+
+        return jsonify(response_data), 200
 
     except Exception as e:
         print(f"Couldn't upload file: {e}")
