@@ -89,11 +89,11 @@ function FileUpload() {
                         <DropZone
                             label={'RDF'}
                             onDrop={handleRDFUpload}
-                            acceptedFiles={'image/*'} />
+                            acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
                         <DropZone
                             label={'Shape'}
                             onDrop={handleRDFUpload}
-                            acceptedFiles={'image/*'} />
+                            acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
                     </Box>
 
                     <Button
