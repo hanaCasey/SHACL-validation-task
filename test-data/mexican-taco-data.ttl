@@ -1,0 +1,50 @@
+@prefix ex: <http://example.org/> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Alice mexican tacos
+ex:Alice a schema:Person ;
+    schema:name "Alice Smith" ;
+    schema:email "alice.smith@example.com" ;
+    schema:telephone "+12345678901" ;
+    schema:birthDate "1990-04-15"^^xsd:date ;
+    schema:address [
+        a schema:PostalAddress ;
+        schema:streetAddress "123 Maple Street" ;
+        schema:addressLocality "Springfield" ;
+        schema:postalCode "12345"
+    ] ;
+    schema:gender "Female" ;
+    schema:height "1.70"^^xsd:decimal ;
+    schema:weight "65.0"^^xsd:decimal ;
+    schema:hobby "Reading" ;
+    ex:favoriteMexicanTacoOrder [ a ex:MexicanTacoOrder ;
+        ex:size "Large" ;
+        ex:meat "Carnitas" ;
+        ex:garnishes "Cilantro" ;
+        ex:sauce "Salsa Verde"
+    ] .
+
+# Bob (with some intentional mistakes) mexican tacos
+ex:Bob a schema:Person ;
+    schema:name "Bob Johnson" ;
+    schema:email "bob.johnson(at)example.com" ;  # Invalid email format
+    # Missing schema:telephone which is mandatory
+    schema:birthDate "1985-12-01"^^xsd:date ;
+    schema:address [
+        a schema:PostalAddress ;
+        schema:streetAddress "456 Oak Avenue" ;
+        schema:addressLocality "Shelbyville" ;
+        schema:postalCode "54321"
+    ] ;
+    schema:gender "Male" ;
+    schema:height "1.75"^^xsd:string ;  # Wrong datatype (should be xsd:decimal)
+    schema:weight "78.0"^^xsd:decimal ;
+    schema:hobby "Swimming" ;
+    ex:favoriteMexicanTacoOrder [
+        ex:size "Extra Large" ;
+        ex:meat "Pepperoni" ;  # Invalid choice (not in the allowed values)
+        ex:garnishes "Lettuce" ;
+        ex:sauce "Salsa Roja"
+    ] .
