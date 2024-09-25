@@ -1,17 +1,19 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
-import { Typography } from '@material-ui/core';
+import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import DropZone from './DropZone';
+import axios from 'axios'; 
+
+const backendURI = process.env.REACT_APP_BACKEND_URI;
 
 
 
@@ -53,16 +55,50 @@ const FormContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-
-
-
 function FileUpload() {
 
-    // Add all the form logic here 
+    const [rdfFile, setRDFFile] = useState(null);
+    const [shapeFile, setShapeFile] = useState(null);
 
     const handleRDFUpload = (acceptedFiles) => {
-        console.log('RDF files uploaded:', acceptedFiles);
+        if (acceptedFiles.length > 0) {
+            setRDFFile(acceptedFiles[0]); // Save RDF file
+            console.log('RDF file uploaded:', acceptedFiles[0]);
+        }
     };
+    const handleShapeUpload = (acceptedFiles) => {
+        if (acceptedFiles.length > 0) {
+            setShapeFile(acceptedFiles[0]); // Save Shape file
+            console.log('Shape file uploaded:', acceptedFiles[0]);
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log(backendURI)
+
+        if (!rdfFile || !shapeFile) {
+            console.error("Please upload both RDF and Shape files.");
+            return;
+        }
+        // Create FormData to send files
+        const formData = new FormData();
+        formData.append('rdf', rdfFile); 
+        formData.append('shape', shapeFile);
+
+        try {
+            console.log('posting')
+            const response = await axios.post(`${backendURI}/api/validate`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Response from backend:', response.data);
+        } catch (error) {
+            console.error('Error uploading files:', error);
+        }
+    };
+
 
     return (
         <FormContainer direction="column" justifyContent="space-between">
@@ -76,7 +112,7 @@ function FileUpload() {
                 </Typography>
                 <Box
                     component="form"
-                    // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                     noValidate
                     sx={{
                         display: 'flex',
@@ -92,7 +128,7 @@ function FileUpload() {
                             acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
                         <DropZone
                             label={'Shape'}
-                            onDrop={handleRDFUpload}
+                            onDrop={handleShapeUpload}
                             acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
                     </Box>
 
@@ -100,7 +136,6 @@ function FileUpload() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                    //   onClick={validateInputs}
                     >
                         Validate
                     </Button>
