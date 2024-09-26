@@ -34,13 +34,13 @@ function ReportDashboard() {
                 // padding={5}
                 sx={{ mb: (theme) => theme.spacing(2), padding: (theme) => theme.spacing(5) }}
             >
-                <Grid item size={{xs:12, md:8}}>
+                <Grid size={{xs:12, md:8}}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                         Errors
                     </Typography>
                     <ErrorGrid data={data} />
                 </Grid>
-                <Grid item size={{xs:12, md:4}}>
+                <Grid size={{xs:12, md:4}}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                         RDF Viz
                     </Typography>
