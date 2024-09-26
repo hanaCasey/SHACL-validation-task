@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import MuiCard from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 
 
@@ -18,7 +19,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     gap: theme.spacing(2),
     margin: 'auto',
     [theme.breakpoints.up('sm')]: {
-        maxWidth: '450px',
+        maxWidth: '600px',
     },
 }));
 
@@ -32,6 +33,12 @@ function Validator() {
         <FileProvider>
             <FormContainer direction="column" justifyContent="space-between">
                 <Card variant="outlined">
+                    <Typography component="h1" variant="h4">
+                        SHACL Validation
+                    </Typography>
+                    <Typography variant="caption">
+                        This validator allows you to validate RDF content against SHACL shapes. 
+                    </Typography>
                     <Box>
                         <FileUpload />
                     </Box>

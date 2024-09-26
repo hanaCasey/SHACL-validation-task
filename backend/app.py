@@ -38,14 +38,10 @@ def validate_ttl():
         
 
         conforms, results_graph, results_text = r
-        # print(f'conforms: {conforms}')
-        # print(f'results: {results_graph}')
-        # print(f'results_text: {results_text}')
-        parsed_data = parse_results_text(results_text)
 
+        parsed_data = parse_results_text(results_text)
         response_data = {'conforms': conforms, 
                     'parsed_data': parsed_data}
-        print(response_data)
 
         return jsonify(response_data), 200
 

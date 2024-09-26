@@ -4,7 +4,6 @@ import NavBar from './components/NavBar';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
-import FileUpload from './components/FileUpload';
 import ReportDashboard from './components/ReportDashboard';
 import Validator from './components/Validator';
 
@@ -30,11 +29,11 @@ function App() {
         <Router>
           <NavBar />
           <Routes>
-            <Route path="/" element={
-              <Validator />} />
-            {/* <Route path="/response" element={<ResponseZone />} /> */}
-            <Route path="/about" element={
-              <ReportDashboard />} />
+            <Route path="/" element={<Validator />} />
+            <Route path="/report" element={<ReportDashboard />} />
+            <Route path="/about" element={<p>
+                Hello about
+              </p>} />
             <Route path="/help" element={
               <p>
                 Hello Help

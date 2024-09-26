@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+
 
 const FileContext = createContext();
 
@@ -9,6 +10,7 @@ export const FileProvider = ({ children }) => {
     const [rdfFile, setRdfFile] = useState(null);
     const [shapeFile, setShapeFile] = useState(null);
     const [validationResult, setValidationResult] = useState(null);
+    const [validationMessage, setValidationMessage] = useState(null); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -31,7 +33,6 @@ export const FileProvider = ({ children }) => {
         const formData = new FormData();
         formData.append('dg', rdfFile);
         formData.append('sg', shapeFile);
-        console.log('sending')
         setLoading(true);
 
         const startTime = Date.now();
@@ -42,9 +43,9 @@ export const FileProvider = ({ children }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             setValidationResult(response.data);
-            console.log('receiving')
-            console.log(response)
+
         } catch (error) {
             console.error('Error during validation:', error);
             setError('Failed to validate. Please try again.');
@@ -57,6 +58,7 @@ export const FileProvider = ({ children }) => {
             }, delay);
         }
     }
+    
     return (
         <FileContext.Provider value={{
             rdfFile, shapeFile, validationResult, loading, error,

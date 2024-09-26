@@ -31,31 +31,36 @@ function FileUpload() {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); //prevent reload because it's a form 
-        await validateFiles(); 
+        await validateFiles();
     };
 
     return (
         <Box>
-            <Typography component="h1" variant="h4">
-                SHACL Validation
-            </Typography>
             <Stack spacing={2}>
+                <Typography variant="h6">Content to validate</Typography>
                 <DropZone
                     label={'RDF'}
                     onDrop={handleRdf}
                     acceptedFiles={{ 'text/turtle': ['.ttl'] }}
                 />
+                <Typography variant="h6">External Shape</Typography>
                 <DropZone
                     label={'Shape'}
                     onDrop={handleShape}
                     acceptedFiles={{ 'text/turtle': ['.ttl'] }}
                 />
-                <Button type="submit" variant="contained"
-                    onClick={handleSubmit}
-                    disabled={!rdfFile || !shapeFile}>
-                    Validate
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        onClick={handleSubmit}
+                        disabled={!rdfFile || !shapeFile}
+                    >
+                        Validate
+                    </Button>
+                </Box>
             </Stack>
+
         </Box>
     );
 }
