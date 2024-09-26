@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from pyshacl import validate
 from flask_cors import CORS, cross_origin
+import re
+import json
 
 app = Flask(__name__)
 CORS(app, origins="*")
@@ -38,10 +40,12 @@ def validate_ttl():
         conforms, results_graph, results_text = r
         # print(f'conforms: {conforms}')
         # print(f'results: {results_graph}')
-        print(f'results_text: {results_text}')
+        # print(f'results_text: {results_text}')
+        parsed_data = parse_results_text(results_text)
 
         response_data = {'conforms': conforms, 
-                    'results-text': results_text}
+                    'parsed_data': parsed_data}
+        print(response_data)
 
         return jsonify(response_data), 200
 
@@ -50,6 +54,47 @@ def validate_ttl():
         d['status'] = 0
         return jsonify(d)  # Return error status
 
+
+def parse_results_text(results_text):
+    # Regex patterns to extract the necessary fields
+    constraint_pattern = re.compile(r'Constraint Violation in ([^\(]+) \((http[^\)]+)\):')
+    severity_pattern = re.compile(r'Severity: ([^\n]+)')
+    source_shape_pattern = re.compile(r'Source Shape: \[([^\]]+)\]')
+    focus_node_pattern = re.compile(r'Focus Node: ([^\n]+)')
+    result_path_pattern = re.compile(r'Result Path: ([^\n]+)')
+    value_node_pattern = re.compile(r'Value Node: ([^\n]+)')
+    message_pattern = re.compile(r'Message: ([^\n]+)')
+
+    # Split the response into individual constraint violations
+    violations = results_text.split("Constraint Violation")
+
+    # Store structured violations
+    structured_violations = []
+
+    for violation in violations[1:]:  # Skip the first "Validation Report" header
+        # Extract data using regex
+        constraint_match = constraint_pattern.search(violation)
+        severity_match = severity_pattern.search(violation)
+        source_shape_match = source_shape_pattern.search(violation)
+        focus_node_match = focus_node_pattern.search(violation)
+        result_path_match = result_path_pattern.search(violation)
+        value_node_match = value_node_pattern.search(violation)  # Optional
+        message_match = message_pattern.search(violation)
+
+        structured_violation = {
+            "component": constraint_match.group(1).strip() if constraint_match else None,
+            "component_url": constraint_match.group(2).strip() if constraint_match else None,
+            "severity": severity_match.group(1).strip() if severity_match else None,
+            "source_shape": source_shape_match.group(1).strip() if source_shape_match else None,
+            "focus_node": focus_node_match.group(1).strip() if focus_node_match else None,
+            "result_path": result_path_match.group(1).strip() if result_path_match else None,
+            "value_node": value_node_match.group(1).strip() if value_node_match else None,  # Optional
+            "message": message_match.group(1).strip() if message_match else None
+        }
+
+        structured_violations.append(structured_violation)
+
+    return structured_violations
 
 if __name__ == '__main__':  
     app.run(host='localhost', port=5000, debug=True)

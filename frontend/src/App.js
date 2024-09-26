@@ -5,7 +5,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import FileUpload from './components/FileUpload';
-import ResponseZone from './components/ReponseZone';
+import ReportDashboard from './components/ReportDashboard';
+import Validator from './components/Validator';
 
 
 const theme = createTheme({
@@ -30,12 +31,10 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={
-              <FileUpload />} />
-            <Route path="/response" element={<ResponseZone />} />
+              <Validator />} />
+            {/* <Route path="/response" element={<ResponseZone />} /> */}
             <Route path="/about" element={
-              <p>
-                Hello About
-              </p>} />
+              <ReportDashboard />} />
             <Route path="/help" element={
               <p>
                 Hello Help

@@ -13,125 +13,51 @@ import FormControl from '@mui/material/FormControl';
 import DropZone from './DropZone';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useFileContext } from './FileContext';
 
-const backendURI = process.env.REACT_APP_BACKEND_URI;
-
-
-
-const Card = styled(MuiCard)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignSelf: 'center',
-    width: '100%',
-    padding: theme.spacing(4),
-    gap: theme.spacing(2),
-    margin: 'auto',
-    [theme.breakpoints.up('sm')]: {
-        maxWidth: '450px',
-    },
-    boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-    ...theme.applyStyles('dark', {
-        boxShadow:
-            'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-    }),
-}));
-
-const FormContainer = styled(Stack)(({ theme }) => ({
-    padding: 20,
-    marginTop: '10vh',
-    '&::before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        zIndex: -1,
-        inset: 0,
-        backgroundImage:
-            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-        backgroundRepeat: 'no-repeat',
-        ...theme.applyStyles('dark', {
-            backgroundImage:
-                'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-        }),
-    },
-}));
 
 function FileUpload() {
 
-    const [rdfFile, setRDFFile] = useState(null);
-    const [shapeFile, setShapeFile] = useState(null);
-    const navigate = useNavigate();
+    const { handleRdfUpload, handleShapeUpload, validateFiles, rdfFile, shapeFile } = useFileContext();
 
-    const handleRDFUpload = (acceptedFiles) => {
-        if (acceptedFiles.length > 0) {
-            setRDFFile(acceptedFiles[0]);
-            console.log('RDF file uploaded:', acceptedFiles[0]);
-        }
+    const handleRdf = (acceptedFiles) => {
+        console.log(acceptedFiles[0])
+        handleRdfUpload(acceptedFiles[0]);
     };
-    const handleShapeUpload = (acceptedFiles) => {
-        if (acceptedFiles.length > 0) {
-            setShapeFile(acceptedFiles[0]);
-            console.log('Shape file uploaded:', acceptedFiles[0]);
-        }
+
+    const handleShape = (acceptedFiles) => {
+        handleShapeUpload(acceptedFiles[0]);
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!rdfFile || !shapeFile) {
-            console.error("Please upload both RDF and Shape files.");
-            return;
-        }
-        // Navigate to response page
-        navigate('/response', { state: { rdfFile, shapeFile } });
+        event.preventDefault(); //prevent reload because it's a form 
+        await validateFiles(); 
     };
 
-
     return (
-        <FormContainer direction="column" justifyContent="space-between">
-            <Card variant="outlined">
-                <Typography
-                    component="h1"
-                    variant="h4"
-                    sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-                >
-                    SHACL Validation
-                </Typography>
-                <Box
-                    component="form"
-                    onSubmit={handleSubmit}
-                    noValidate
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        width: '100%',
-                        gap: 2,
-                    }}
-                >
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                        <DropZone
-                            label={'RDF'}
-                            onDrop={handleRDFUpload}
-                            acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
-                        <DropZone
-                            label={'Shape'}
-                            onDrop={handleShapeUpload}
-                            acceptedFiles={{ 'text/turtle': ['.ttl'] }} />
-                    </Box>
-
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                    >
-                        Validate
-                    </Button>
-                </Box>
-            </Card>
-        </FormContainer>
-
+        <Box>
+            <Typography component="h1" variant="h4">
+                SHACL Validation
+            </Typography>
+            <Stack spacing={2}>
+                <DropZone
+                    label={'RDF'}
+                    onDrop={handleRdf}
+                    acceptedFiles={{ 'text/turtle': ['.ttl'] }}
+                />
+                <DropZone
+                    label={'Shape'}
+                    onDrop={handleShape}
+                    acceptedFiles={{ 'text/turtle': ['.ttl'] }}
+                />
+                <Button type="submit" variant="contained"
+                    onClick={handleSubmit}
+                    disabled={!rdfFile || !shapeFile}>
+                    Validate
+                </Button>
+            </Stack>
+        </Box>
     );
-
-
 }
 
 export default FileUpload; 
