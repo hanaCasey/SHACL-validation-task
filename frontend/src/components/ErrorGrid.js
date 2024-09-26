@@ -16,6 +16,7 @@ const columns = [
 
 const ErrorGrid = ({ data }) => {
 
+    
     const rows = data.map((item, index) => ({
         id: index + 1, // Assigning an ID based on the index
         focus_node: item.focus_node || null,

@@ -19,6 +19,7 @@ function FileResponse() {
     const { validationResult, loading, error } = useFileContext();
     const navigate = useNavigate();
 
+
     const handleReport = () => {
         navigate('/report', { state: { validationResult } })
     };
@@ -26,10 +27,10 @@ function FileResponse() {
     return (
         <ResponseContainer>
             {loading && <CircularProgress sx={{ margin: '20px auto' }} />}
-            {!loading && validationResult !== null  && validationResult.conforms === true && (
+            {!loading && validationResult !== null  && validationResult.conforms && (
                 <CheckCircleIcon color="success" fontSize="large" sx={{ margin: '20px auto' }} />
             )}
-            {!loading && validationResult !== null  && validationResult.conforms === false && (
+            {!loading && validationResult !== null  && !validationResult.conforms && (
                 <Box sx={{ textAlign: 'center', margin: '20px auto' }}>
                     <CancelIcon color="error" fontSize="large" />
                     <Typography variant="body1">Validation failed!</Typography>
