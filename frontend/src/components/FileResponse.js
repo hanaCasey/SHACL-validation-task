@@ -23,7 +23,6 @@ function FileResponse() {
         navigate('/report', { state: { validationResult } })
     };
  
-
     return (
         <ResponseContainer>
             {loading && <CircularProgress sx={{ margin: '20px auto' }} />}

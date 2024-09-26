@@ -12,42 +12,20 @@ const columns = [
     { field: 'message', headerName: 'Message', width: 300 },
 ];
 
-const rows = [
-    {
-        id: 1,
-        // component: null,
-        focus_node: 'ex:Bob',
-        result_path: 'schema:email',
-        severity: 'sh:Violation',
-        source_shape: 'sh:datatype xsd:string ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path schema:email ; sh:pattern Literal("^\\S+@\\S+\\.\\S+$") ; skos:definition Literal("The email address of the person. Must be a valid email format and is mandatory.") ; skos:label Literal("Email")',
-        value_node: null,
-        message: 'Less than 1 values on ex:Bob->schema:email'
-    },
-    {
-        id: 2,
-        // component: null,
-        focus_node: 'ex:Bob',
-        result_path: 'schema:telephone',
-        severity: 'sh:Violation',
-        source_shape: 'sh:datatype xsd:string ; sh:path schema:telephone ; sh:pattern Literal("^\\+\\d{9,15}$") ; skos:definition Literal("The telephone number of the person in international format.") ; skos:label Literal("Telephone")',
-        value_node: 'Literal("1234567890")',
-        message: 'Value does not match pattern \'^\\+\\d{9,15}$\''
-    },
-    {
-        id: 3,
-        // component: null,
-        focus_node: 'ex:Bob',
-        result_path: 'schema:birthDate',
-        severity: 'sh:Violation',
-        source_shape: 'sh:datatype xsd:date ; sh:path schema:birthDate ; skos:definition Literal("The birth date of the person in ISO 8601 format (YYYY-MM-DD).") ; skos:label Literal("Birth Date")',
-        value_node: 'Literal("14-06-1985")',
-        message: 'Value is not Literal with datatype xsd:date'
-    }
-];
 
 
+const ErrorGrid = ({ data }) => {
 
-function ErrorGrid() {
+    const rows = data.map((item, index) => ({
+        id: index + 1, // Assigning an ID based on the index
+        focus_node: item.focus_node || null,
+        result_path: item.result_path || null,
+        severity: item.severity || null,
+        source_shape: item.source_shape || null,
+        value_node: item.value_node || null,
+        message: item.message || null,
+    }));
+
     return (
         <Box sx={{ height: 400, width: '100%', overflow: 'auto' }}>
             <DataGrid

@@ -13,9 +13,10 @@ import {
 function ReportDashboard() {
 
     const location = useLocation();
+    const { validationResult } = location.state || {}; 
     const navigate = useNavigate();
 
-    const data = ''
+    const data = validationResult?.parsed_data || [];
 
     const handleBack = () => {
         navigate(-1); // Navigate back to the file upload page
@@ -37,7 +38,7 @@ function ReportDashboard() {
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                         Errors
                     </Typography>
-                    <ErrorGrid />
+                    <ErrorGrid data={data} />
                 </Grid>
                 <Grid item size={{xs:12, md:4}}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
