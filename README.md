@@ -16,16 +16,19 @@ Before starting, ensure you have the following installed:
 
 ```bash
 cd backend
+```
 
 ### 2. Install the backend dependencies
 
 ```bash
 pip install -r requirements.txt
+````
 
 ### 3. Run the backend server
 
 ```bash
 python3 app.py
+```
 
 
 The backend will run on http://localhost:3000 by default. 
@@ -38,13 +41,14 @@ The backend will run on http://localhost:3000 by default.
 
 ```bash
 cd frontend
+```
 
 
 ### 2. Install the frontend dependencies
 
 ```bash
 npm install
-
+```
 
 ### 3. Run the backend server
 
@@ -52,7 +56,7 @@ To start the React development server, run
 
 ```bash
 npm start
-
+```
 The frontend will open in your Browser at http://localhost:3000. 
 
 ## Running the Full Application
