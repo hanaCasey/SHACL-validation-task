@@ -31,6 +31,7 @@ def validate_ttl():
             js=False,
             debug=False)
         
+
         conforms, results_graph, results_text = r
 
         parsed_data = parse_results_text(results_text)
