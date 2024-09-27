@@ -24,7 +24,7 @@ function FileUpload() {
      * @param {File[]} acceptedFiles - The files that were accepted in the drop zone.
      */
     const handleRdf = (acceptedFiles) => {
-        console.log(acceptedFiles[0]);
+        // console.log(acceptedFiles[0]);
         handleRdfUpload(acceptedFiles[0]);
     };
 
