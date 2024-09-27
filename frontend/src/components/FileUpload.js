@@ -4,24 +4,46 @@ import Button from '@mui/material/Button';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import DropZone from './DropZone';
-import { useFileContext } from './FileContext';
+import { useFileContext } from '../context/FileContext';
 
 
+/**
+ * FileUpload component allows users to upload RDF and Shape files.
+ *
+ * It includes two drop zones for file uploads and a submit button to validate the files.
+ * The component interacts with the FileContext to manage file uploads and validation.
+ *
+ * @returns {JSX.Element} The rendered FileUpload component.
+ */
 function FileUpload() {
-
     const { handleRdfUpload, handleShapeUpload, validateFiles, rdfFile, shapeFile } = useFileContext();
 
+    /**
+     * Handles the accepted files for RDF upload.
+     *
+     * @param {File[]} acceptedFiles - The files that were accepted in the drop zone.
+     */
     const handleRdf = (acceptedFiles) => {
-        console.log(acceptedFiles[0])
+        console.log(acceptedFiles[0]);
         handleRdfUpload(acceptedFiles[0]);
     };
 
+    /**
+     * Handles the accepted files for Shape upload.
+     *
+     * @param {File[]} acceptedFiles - The files that were accepted in the drop zone.
+     */
     const handleShape = (acceptedFiles) => {
         handleShapeUpload(acceptedFiles[0]);
     };
 
+    /**
+     * Handles the form submission to validate the uploaded files.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event - The form submit event.
+     */
     const handleSubmit = async (event) => {
-        event.preventDefault(); //prevent reload because it's a form 
+        event.preventDefault(); // Prevent reload because it's a form 
         await validateFiles();
     };
 

@@ -7,6 +7,29 @@ import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 
 
+/**
+ * DropZone Component
+ *
+ * A customizable drag-and-drop file upload component that allows users to upload files by dragging them into the area or clicking to select files.
+ *
+ * @component
+ * @example
+ * return (
+ *   <DropZone 
+ *     label="RDF File" 
+ *     onDrop={handleFileUpload} 
+ *     acceptedFiles={{ 'text/turtle': ['.ttl'] }} 
+ *   />
+ * )
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.label - The label for the DropZone, displayed below the upload area.
+ * @param {function} props.onDrop - Callback function triggered when a file is dropped. Receives the accepted files as an argument.
+ * @param {Object} props.acceptedFiles - An object defining accepted file types for the dropzone, following the react-dropzone format.
+ *
+ * @returns {JSX.Element} The rendered DropZone component.
+ */
+
 function DropZone({ label, onDrop, acceptedFiles }) {
 
     const theme = useTheme();

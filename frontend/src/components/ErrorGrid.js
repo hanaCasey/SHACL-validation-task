@@ -2,6 +2,35 @@
 import {Box } from '@mui/material'; 
 import { DataGrid } from '@mui/x-data-grid';
 
+
+/**
+ * ErrorGrid Component
+ *
+ * A component that displays validation errors in a structured grid format using Material-UI's DataGrid.
+ * The grid includes columns for focus node, result path, severity, source shape, value node, and message.
+ *
+ * @component
+ * @example
+ * const errors = [
+ *   { focus_node: 'Node1', result_path: '/path/to/node1', severity: 'Error', source_shape: 'Shape1', value_node: 'Value1', message: 'An error occurred' },
+ *   // more error objects...
+ * ];
+ *
+ * return (
+ *   <ErrorGrid data={errors} />
+ * );
+ *
+ * @param {Object[]} props.data - An array of error objects to display in the grid.
+ * @param {string} props.data[].focus_node - The focus node associated with the error.
+ * @param {string} props.data[].result_path - The result path where the error occurred.
+ * @param {string} props.data[].severity - The severity level of the error (e.g., Warning, Error).
+ * @param {string} props.data[].source_shape - The shape source related to the error.
+ * @param {string} props.data[].value_node - The value node where the error was identified.
+ * @param {string} props.data[].message - A message describing the error.
+ *
+ * @returns {JSX.Element} The rendered ErrorGrid component.
+ */
+
 const columns = [
     // { field: 'component', headerName: 'Component', width: 150 },
     { field: 'focus_node', headerName: 'Focus Node', width: 150 },
@@ -11,9 +40,6 @@ const columns = [
     { field: 'value_node', headerName: 'Value Node', width: 150 },
     { field: 'message', headerName: 'Message', width: 300 },
 ];
-
-
-
 const ErrorGrid = ({ data }) => {
 
     

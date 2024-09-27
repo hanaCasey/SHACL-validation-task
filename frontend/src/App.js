@@ -7,10 +7,9 @@ import { Box } from '@mui/material';
 import ReportDashboard from './components/ReportDashboard';
 import Validator from './components/Validator';
 
-
 const theme = createTheme({
   typography: {
-    fontFamily: '"Helvetica", sans-serif',  // Replace this with your desired font
+    fontFamily: '"Helvetica", sans-serif',
   },
   palette: {
     mode: 'light',
@@ -21,10 +20,18 @@ const theme = createTheme({
       main: '#d691a9',
     },
   },
-}
-);
+});
 
-
+/**
+ * Main application component that wraps the routing and theming setup.
+ *
+ * The App component is the entry point of the application. It applies a 
+ * Material-UI theme, sets up routing with React Router, and renders the 
+ * navigation bar and routes for different pages, including the Validator
+ * and ReportDashboard components.
+ *
+ * @returns {JSX.Element} The rendered App component with routing and theming.
+ */
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -34,13 +41,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Validator />} />
             <Route path="/report" element={<ReportDashboard />} />
-            <Route path="/about" element={<p>
-                Hello about
-              </p>} />
-            <Route path="/help" element={
-              <p>
-                Hello Help
-              </p>} />
+            <Route path="/about" element={<p>Hello about</p>} />
+            <Route path="/help" element={<p>Hello Help</p>} />
           </Routes>
         </Router>
       </Box>

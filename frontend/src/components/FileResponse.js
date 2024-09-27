@@ -5,25 +5,37 @@ import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useFileContext } from './FileContext';
+import { useFileContext } from '../context/FileContext';
 
 
+/**
+ * Styled container for the response.
+ * @type {React.ComponentType}
+ */
 const ResponseContainer = styled(Stack)(({ theme }) => ({
     padding: 20,
-    // marginTop: '10vh',
 }));
 
-
+/**
+ * FileResponse component displays the validation result of uploaded files.
+ *
+ * This component shows a loading indicator while the validation is in progress,
+ * a success message if validation passes, and a failure message with a button
+ * to see the report if validation fails.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function FileResponse() {
-
-    const { validationResult, loading} = useFileContext();
+    const { validationResult, loading } = useFileContext();
     const navigate = useNavigate();
 
-
+    /**
+     * Handles the click event to navigate to the report page with the validation result.
+     */
     const handleReport = () => {
-        navigate('/report', { state: { validationResult } })
+        navigate('/report', { state: { validationResult } });
     };
- 
+
     return (
         <ResponseContainer>
             {loading && <CircularProgress sx={{ margin: '20px auto' }} />}

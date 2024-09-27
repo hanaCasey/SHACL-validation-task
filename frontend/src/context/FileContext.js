@@ -1,10 +1,41 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
+/**
+ * FileContext provides a way to share state and functions related to file uploads and validation
+ * across components without prop drilling.
+ *
+ * @typedef {Object} FileContextType
+ * @property {File|null} rdfFile - The uploaded RDF file.
+ * @property {File|null} shapeFile - The uploaded Shape file.
+ * @property {Object|null} validationResult - The result of the validation after files are processed.
+ * @property {boolean} loading - Indicates whether the validation process is ongoing.
+ * @property {string|null} error - An error message if validation fails.
+ * @property {Function} handleRdfUpload - Function to set the RDF file state.
+ * @property {Function} handleShapeUpload - Function to set the Shape file state.
+ * @property {Function} validateFiles - Function to validate the uploaded files against the backend.
+ */
 
+/**
+ * Context for managing file uploads and validation.
+ * @type {React.Context<FileContextType>}
+ */
 const FileContext = createContext();
 
+/**
+ * Custom hook to use the FileContext.
+ *
+ * @returns {FileContextType} The current context value.
+ */
 export const useFileContext = () => useContext(FileContext);
+
+/**
+ * FileProvider component to encapsulate children with file management logic.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.ReactNode} props.children - The child components to wrap with the provider.
+ * @returns {JSX.Element} The FileProvider component.
+ */
 
 export const FileProvider = ({ children }) => {
     const [rdfFile, setRdfFile] = useState(null);

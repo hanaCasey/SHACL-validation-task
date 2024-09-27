@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileProvider } from './FileContext';
+import { FileProvider } from '../context/FileContext';
 import FileUpload from './FileUpload';
 import FileResponse from './FileResponse';
 import { styled } from '@mui/material/styles';
@@ -7,8 +7,6 @@ import MuiCard from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -42,6 +40,16 @@ const FormContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
+/**
+ * Validator component serves as the main interface for SHACL validation.
+ *
+ * This component provides a UI for users to upload RDF files and validate
+ * them against SHACL shapes. It uses the FileProvider context to manage
+ * file states and displays both the file upload interface and the validation 
+ * results.
+ *
+ * @returns {JSX.Element} The rendered Validator component.
+ */
 function Validator() {
     return (
         <FileProvider>

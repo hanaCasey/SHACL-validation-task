@@ -11,18 +11,27 @@ import {
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import image from '../assets/rdf-grapher.png'
 
-
-
+/**
+ * ReportDashboard component displays the results of RDF validation.
+ * 
+ * It shows validation errors in a grid and visualizes the RDF data
+ * with a zoomable image. It also includes a back button to return 
+ * to the previous page.
+ *
+ * @returns {JSX.Element} The rendered ReportDashboard component.
+ */
 function ReportDashboard() {
-
     const location = useLocation();
-    const { validationResult } = location.state || {}; 
+    const { validationResult } = location.state || {};
     const navigate = useNavigate();
 
     const data = validationResult?.parsed_data || [];
 
+    /**
+     * Navigates back to the previous page.
+     */
     const handleBack = () => {
-        navigate(-1); // Navigate back to the file upload page
+        navigate(-1); 
     };
 
     return (
@@ -37,36 +46,36 @@ function ReportDashboard() {
                 // padding={5}
                 sx={{ mb: (theme) => theme.spacing(2), padding: (theme) => theme.spacing(5) }}
             >
-                <Grid size={{xs:12, md:8}}>
+                <Grid size={{ xs: 12, md: 8 }}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                         Validation Errors
                     </Typography>
                     <ErrorGrid data={data} />
                 </Grid>
-                <Grid size={{xs:12, md:4}}>
+                <Grid size={{ xs: 12, md: 4 }}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-                        Graph 
+                        Graph
                     </Typography>
                     <Box
-                sx={{
-                    width: '100%', 
-                    height: '400px', 
-                    overflow: 'auto', 
-                    border: '1px solid #ccc',
-                    position: 'relative'
-                }}
-            >
-                {/* TransformWrapper provides zoom and pan functionality */}
-                <TransformWrapper>
-                    <TransformComponent>
-                        <img
-                            src={image}
-                            alt="RDF Visualization"
-                            style={{ maxWidth: '100%', height: 'auto' }}
-                        />
-                    </TransformComponent>
-                </TransformWrapper>
-                </Box>
+                        sx={{
+                            width: '100%',
+                            height: '400px',
+                            overflow: 'auto',
+                            border: '1px solid #ccc',
+                            position: 'relative'
+                        }}
+                    >
+                        {/* TransformWrapper provides zoom and pan functionality */}
+                        <TransformWrapper>
+                            <TransformComponent>
+                                <img
+                                    src={image}
+                                    alt="RDF Visualization"
+                                    style={{ maxWidth: '100%', height: 'auto' }}
+                                />
+                            </TransformComponent>
+                        </TransformWrapper>
+                    </Box>
                 </Grid>
             </Grid>
 
