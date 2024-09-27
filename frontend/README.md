@@ -1,3 +1,4 @@
+```
 shacl-validator-frontend/
 │
 ├── public/
@@ -25,3 +26,4 @@ shacl-validator-frontend/
 │
 ├── package.json              # Project dependencies and scripts
 └── README.md                 # This README file
+```
