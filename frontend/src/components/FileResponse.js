@@ -10,7 +10,7 @@ import { useFileContext } from './FileContext';
 
 const ResponseContainer = styled(Stack)(({ theme }) => ({
     padding: 20,
-    marginTop: '10vh',
+    // marginTop: '10vh',
 }));
 
 
@@ -28,15 +28,20 @@ function FileResponse() {
         <ResponseContainer>
             {loading && <CircularProgress sx={{ margin: '20px auto' }} />}
             {!loading && validationResult !== null  && validationResult.conforms && (
+                <Box sx={{ textAlign: 'center', margin: '20px auto' }}>
                 <CheckCircleIcon color="success" fontSize="large" sx={{ margin: '20px auto' }} />
+                <Typography variant="body1" sx={{ mb: 2 }}>Validation success!</Typography>
+                </Box>
             )}
             {!loading && validationResult !== null  && !validationResult.conforms && (
                 <Box sx={{ textAlign: 'center', margin: '20px auto' }}>
-                    <CancelIcon color="error" fontSize="large" />
-                    <Typography variant="body1">Validation failed!</Typography>
-                    <Button variant="outlined" onClick={handleReport}>
-                        See Report
-                    </Button>
+                    <CancelIcon color="error" fontSize="large" sx={{ mb: 2 }}/>
+                    <Typography variant="body1" sx={{ mb: 2 }}>Validation failed!</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button variant="outlined" onClick={handleReport}>
+                            See Report
+                        </Button>
+                    </Box>
                 </Box>
             )}
 

@@ -10,7 +10,6 @@ export const FileProvider = ({ children }) => {
     const [rdfFile, setRdfFile] = useState(null);
     const [shapeFile, setShapeFile] = useState(null);
     const [validationResult, setValidationResult] = useState(null);
-    const [validationMessage, setValidationMessage] = useState(null); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 

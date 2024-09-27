@@ -7,11 +7,6 @@ import json
 app = Flask(__name__)
 CORS(app, origins="*")
 
-@app.route('/')
-def hello_world():
-    print('hello')
-    return 'Hello World'
-
 @app.route('/api/validate', methods = ['POST', 'OPTIONS'])
 @cross_origin()
 def validate_ttl():
@@ -36,7 +31,6 @@ def validate_ttl():
             js=False,
             debug=False)
         
-
         conforms, results_graph, results_text = r
 
         parsed_data = parse_results_text(results_text)

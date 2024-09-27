@@ -28,17 +28,16 @@ function FileUpload() {
     return (
         <Box
             component="form"
-
             noValidate
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 width: '100%',
-                gap: 2,
+                gap: 2
             }}
         >
             <FormControl>
-            <FormLabel htmlFor="email">Content to validate</FormLabel>
+            <FormLabel sx={{ fontSize: '16px' }}>Content to validate</FormLabel>
                 <DropZone
                     label={'RDF'}
                     onDrop={handleRdf}
@@ -46,7 +45,7 @@ function FileUpload() {
                 />
             </FormControl>
             <FormControl>
-            <FormLabel htmlFor="email">External Shape</FormLabel>
+            <FormLabel sx={{ fontSize: '16px' }}>External Shape</FormLabel>
                 <DropZone
                     label={'Shape'}
                     onDrop={handleShape}
@@ -57,6 +56,7 @@ function FileUpload() {
                     <Button
                         type="submit"
                         variant="contained"
+                        fullWidth
                         onClick={handleSubmit}
                         disabled={!rdfFile || !shapeFile}
                     >

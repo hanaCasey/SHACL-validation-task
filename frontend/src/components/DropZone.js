@@ -69,11 +69,11 @@ function DropZone({ label, onDrop, acceptedFiles }) {
                                     }}
                                 />
                             )}
-                            <Typography variant="body1" color="textSecondary">
+                            <Typography variant="caption" color="textSecondary">
                                 {isDragActive
                                     ? 'Drop the file here...'
                                     : fileName
-                                        ? `Uploaded file: ${fileName}`
+                                        ? `File: ${fileName}`
                                         : `Drag and drop or click to select files`}
                             </Typography>
                             </Box>

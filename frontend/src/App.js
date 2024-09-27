@@ -9,6 +9,9 @@ import Validator from './components/Validator';
 
 
 const theme = createTheme({
+  typography: {
+    fontFamily: '"Helvetica", sans-serif',  // Replace this with your desired font
+  },
   palette: {
     mode: 'light',
     primary: {
