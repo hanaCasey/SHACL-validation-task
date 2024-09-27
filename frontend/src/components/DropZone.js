@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Dropzone from 'react-dropzone'
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';

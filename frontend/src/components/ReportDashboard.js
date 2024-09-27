@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid2';
 import ErrorGrid from './ErrorGrid';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
     Container,

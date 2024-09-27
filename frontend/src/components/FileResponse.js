@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Container } from '@mui/material';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Typography, CircularProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -16,7 +16,7 @@ const ResponseContainer = styled(Stack)(({ theme }) => ({
 
 function FileResponse() {
 
-    const { validationResult, loading, error } = useFileContext();
+    const { validationResult, loading} = useFileContext();
     const navigate = useNavigate();
 
 
