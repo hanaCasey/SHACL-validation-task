@@ -51,22 +51,32 @@ function DropZone({ label, onDrop, acceptedFiles }) {
                         }}
                     >
                         <input {...getInputProps()} />
-                        {!isUploaded && (
-                            <CloudUploadIcon
-                                sx={{
-                                    fontSize: 20,
-                                    // mb: 2,
-                                    color: isDragActive ? theme.palette.primary.main : theme.palette.grey[500],
-                                }}
-                            />
-                        )}
-                        <Typography variant="body1" color="textSecondary">
-                            {isDragActive
-                                ? 'Drop the files here...'
-                                : fileName
-                                    ? `Uploaded file: ${fileName}`
-                                    : `Drag and drop ${label} file here, or click to select files`}
-                        </Typography>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 1, // Space between the icon and text
+                            }}
+                        >
+
+                            {!isUploaded && (
+                                <CloudUploadIcon
+                                    sx={{
+                                        fontSize: 20,
+                                        // mb: 2,
+                                        color: isDragActive ? theme.palette.primary.main : theme.palette.grey[500],
+                                    }}
+                                />
+                            )}
+                            <Typography variant="body1" color="textSecondary">
+                                {isDragActive
+                                    ? 'Drop the file here...'
+                                    : fileName
+                                        ? `Uploaded file: ${fileName}`
+                                        : `Drag and drop or click to select files`}
+                            </Typography>
+                            </Box>
                     </StyledDropzone>
                 )}
             </Dropzone>

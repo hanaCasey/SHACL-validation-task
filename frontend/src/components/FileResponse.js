@@ -9,8 +9,8 @@ import { useFileContext } from './FileContext';
 
 
 const ResponseContainer = styled(Stack)(({ theme }) => ({
-    // padding: 20,
-    // marginTop: '10vh',
+    padding: 20,
+    marginTop: '10vh',
 }));
 
 
