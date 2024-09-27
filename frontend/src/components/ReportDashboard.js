@@ -8,6 +8,9 @@ import {
     Box,
     Button
 } from '@mui/material';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import image from '../assets/rdf-grapher.png'
+
 
 
 function ReportDashboard() {
@@ -36,14 +39,34 @@ function ReportDashboard() {
             >
                 <Grid size={{xs:12, md:8}}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-                        Errors
+                        Validation Errors
                     </Typography>
                     <ErrorGrid data={data} />
                 </Grid>
                 <Grid size={{xs:12, md:4}}>
                     <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-                        RDF Viz
+                        Graph 
                     </Typography>
+                    <Box
+                sx={{
+                    width: '100%', 
+                    height: '400px', 
+                    overflow: 'auto', 
+                    border: '1px solid #ccc',
+                    position: 'relative'
+                }}
+            >
+                {/* TransformWrapper provides zoom and pan functionality */}
+                <TransformWrapper>
+                    <TransformComponent>
+                        <img
+                            src={image}
+                            alt="RDF Visualization"
+                            style={{ maxWidth: '100%', height: 'auto' }}
+                        />
+                    </TransformComponent>
+                </TransformWrapper>
+                </Box>
                 </Grid>
             </Grid>
 
